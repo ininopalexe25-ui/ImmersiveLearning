@@ -1,0 +1,129 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_gear/view
+
+    Template for the GEAR activity view page.
+
+    @copyright  2026 Boban Blagojevic
+    @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+
+    Classes required for JS:
+    * gear-activity - Main container
+    * gear-viewer - 3D viewer container
+    * gear-canvas - WebGL canvas
+
+    Data attributes required for JS:
+    * data-cmid - Course module ID
+
+    Context variables required:
+    * name string - Activity name
+    * intro string - Activity introduction HTML
+    * has_models bool - Whether models exist
+    * ar_enabled bool - AR mode enabled
+    * vr_enabled bool - VR mode enabled
+    * cmid int - Course module ID
+
+    Example context (json):
+    {
+        "name": "Sample GEAR Activity",
+        "intro": "<p>This is an introduction to the 3D model.</p>",
+        "has_models": true,
+        "ar_enabled": true,
+        "vr_enabled": true,
+        "cmid": 123
+    }
+}}
+
+<div class="gear-activity" data-cmid="{{cmid}}">
+    <div class="gear-header d-flex justify-content-between align-items-start">
+        <div>
+            {{#name}}<h2>{{name}}</h2>{{/name}}
+            {{#intro}}
+            <div class="gear-intro">
+                {{{intro}}}
+            </div>
+            {{/intro}}
+        </div>
+        {{#can_manage}}
+        <div>
+            <a href="{{reporturl}}" class="btn btn-outline-info">
+                <i class="fa fa-bar-chart" aria-hidden="true"></i> {{#str}}reports, mod_gear{{/str}}
+            </a>
+        </div>
+        {{/can_manage}}
+    </div>
+
+    <div class="gear-viewer-container">
+        {{#has_models}}
+        <div class="gear-viewer" id="gear-viewer-{{cmid}}">
+            <div class="gear-loading">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">{{#str}}loadingmodel, mod_gear{{/str}}</span>
+                </div>
+                <p>{{#str}}loadingmodel, mod_gear{{/str}}</p>
+            </div>
+            <canvas id="gear-canvas-{{cmid}}" class="gear-canvas"></canvas>
+        </div>
+
+        <div class="gear-controls">
+            <div class="gear-controls-left">
+                <button type="button" class="btn btn-outline-secondary gear-control-btn" id="gear-fullscreen-{{cmid}}" title="{{#str}}fullscreen, mod_gear{{/str}}">
+                    <i class="fa fa-expand" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn btn-outline-secondary gear-control-btn" id="gear-autorotate-{{cmid}}" title="{{#str}}autorotate, mod_gear{{/str}}">
+                    <i class="fa fa-sync" aria-hidden="true"></i>
+                </button>
+                {{#can_manage}}
+                <button type="button" class="btn btn-outline-secondary gear-control-btn" id="gear-saveview-{{cmid}}" title="{{#str}}saveview, mod_gear{{/str}}">
+                    <i class="fa fa-save" aria-hidden="true"></i>
+                </button>
+                <div class="gear-control-slider-container">
+                    <div class="gear-color-picker-wrapper">
+                        <input type="color" class="gear-hotspot-color-picker" id="gear-hotspot-color-{{cmid}}" value="#6366f1" title="{{#str}}hotspotcolor, mod_gear{{/str}}">
+                    </div>
+                    <input type="range" class="gear-hotspot-scale-slider" id="gear-hotspot-scale-{{cmid}}" min="0.1" max="3" step="0.1" value="1" title="{{#str}}hotspotscale, mod_gear{{/str}}">
+                </div>
+                {{/can_manage}}
+            </div>
+
+
+            <div class="gear-controls-right">
+                {{#ar_enabled}}
+                <button type="button" class="btn btn-primary gear-ar-btn" id="gear-ar-{{cmid}}">
+                    <i class="fa fa-mobile-alt" aria-hidden="true"></i>
+                    {{#str}}enterar, mod_gear{{/str}}
+                </button>
+                {{/ar_enabled}}
+                {{#vr_enabled}}
+                <button type="button" class="btn btn-primary gear-vr-btn" id="gear-vr-{{cmid}}">
+                    <i class="fa fa-vr-cardboard" aria-hidden="true"></i>
+                    {{#str}}entervr, mod_gear{{/str}}
+                </button>
+                {{/vr_enabled}}
+            </div>
+        </div>
+        {{/has_models}}
+
+        {{^has_models}}
+        <div class="alert alert-info">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            {{#str}}nomodels, mod_gear{{/str}}
+        </div>
+        {{/has_models}}
+    </div>
+</div>

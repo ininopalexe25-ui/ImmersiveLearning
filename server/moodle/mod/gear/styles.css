@@ -1,0 +1,730 @@
+/* stylelint-disable */
+/**
+ * This file is part of Moodle - http://moodle.org/
+ *
+ * Moodle is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Moodle is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * GEAR - Immersive AR/VR Learning styles.
+ *
+ * @package    mod_gear
+ * @copyright  2026 Boban Blagojevic
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+:root {
+    --primary: #0f6cff;
+    --primary-dark: #0b57cc;
+}
+
+/* Container */
+.gear-activity {
+    margin: 1rem 0;
+}
+
+.gear-header {
+    margin-bottom: 1.5rem;
+}
+
+.gear-intro {
+    margin-top: 0.5rem;
+    color: #666;
+}
+
+/* Viewer */
+.gear-viewer-container {
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    /* Allow dropdowns/dropups to overflow the container */
+    position: relative;
+    overflow: visible;
+}
+
+.gear-viewer {
+    position: relative !important;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 400px;
+    /* Ensure border-radius is respected by canvas while container is visible */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    overflow: hidden;
+}
+
+.gear-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Loading state */
+.gear-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 10;
+}
+
+.gear-loading p {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.gear-viewer.loaded .gear-loading {
+    display: none;
+}
+
+/* Controls */
+.gear-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    /* Raise above other content to ensure dropup visibility */
+    position: relative;
+    z-index: 1050; /* Higher than Three.js canvas and other overlays */
+}
+
+/* Force visible when toggled via JS */
+.dropdown-menu.show {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.gear-controls-left,
+.gear-controls-center,
+.gear-controls-right {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.gear-control-hints {
+    display: flex;
+    gap: 1.25rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.gear-control-hints span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+}
+
+.gear-help-hint {
+    cursor: help;
+    outline: none;
+}
+
+.gear-control-hints i {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.gear-control-btn {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.gear-control-btn:hover {
+    transform: scale(1.05);
+}
+
+.gear-control-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+}
+
+.gear-ar-btn,
+.gear-vr-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.gear-ar-btn:hover,
+.gear-vr-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.gear-ar-btn:disabled,
+.gear-vr-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Hotspots */
+.gear-hotspot {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+    animation: hotspot-pulse 2s infinite;
+}
+
+.gear-hotspot:hover {
+    transform: scale(1.2);
+}
+
+@keyframes hotspot-pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+    }
+}
+
+/* Hotspot popup */
+.gear-hotspot-popup {
+    position: absolute;
+    background: transparent;
+    border-radius: 12px;
+    padding: 0;
+    max-width: 400px;
+    box-shadow: none;
+    z-index: 100;
+    animation: popup-appear 0.2s ease;
+}
+
+@keyframes popup-appear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gear-hotspot-popup h4 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.gear-hotspot-popup .content {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Fullscreen mode */
+.gear-viewer-container.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    border-radius: 0;
+}
+
+.gear-viewer-container.fullscreen .gear-viewer {
+    height: calc(100vh - 68px);
+    aspect-ratio: unset;
+}
+
+/* VR mode indicator */
+.gear-vr-active {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    z-index: 10000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .gear-viewer {
+        min-height: 300px;
+    }
+
+    .gear-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .gear-controls-left,
+    .gear-controls-right {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .gear-ar-btn,
+    .gear-vr-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+/* Hotspot popup */
+.gear-hotspot-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.gear-hotspot-popup.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.gear-hotspot-popup-inner {
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    min-width: 280px;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.gear-hotspot-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.gear-hotspot-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gear-hotspot-title {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.gear-hotspot-content {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.gear-hotspot-content p {
+    margin: 0 0 0.5rem 0;
+}
+
+.gear-hotspot-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Hotspot add form */
+.gear-hotspot-form-inner {
+    min-width: 320px;
+}
+
+.gear-form-group {
+    margin-bottom: 1rem;
+}
+
+.gear-form-group input,
+.gear-form-group textarea {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    /* slightly lighter translucent background for better contrast */
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+    color: #ffffff;
+    /* ensure caret and webkit text color are white */
+    caret-color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+.gear-form-group input:focus,
+.gear-form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    /* slightly brighten background on focus */
+    background: rgba(255, 255, 255, 0.09);
+}
+.gear-form-group input::placeholder,
+.gear-form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* improve selected text visibility inside inputs/textareas */
+.gear-form-group input::selection,
+.gear-form-group textarea::selection {
+    background: rgba(255, 255, 255, 0.18);
+    color: #0b1220;
+}
+
+
+.gear-form-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1.25rem;
+}
+
+.gear-form-actions .btn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gear-form-actions .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.gear-form-actions .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gear-form-actions .btn-primary {
+    background: var(--primary);
+    border: none;
+    color: #fff;
+}
+
+.gear-form-actions .btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+
+/* Scene Overlay Controls (Floating on Scene top-right) */
+.gear-scene-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    z-index: 1500 !important; /* Above most UI but below modals */
+}
+
+.gear-overlay-btn {
+    background: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    width: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer !important;
+}
+
+.gear-overlay-btn:hover {
+    background: rgba(0, 0, 0, 0.6) !important;
+    transform: scale(1.1);
+    border-color: var(--primary) !important;
+}
+
+.gear-overlay-btn:active {
+    transform: scale(0.95);
+    background: var(--primary) !important;
+}
+
+.gear-overlay-btn::after {
+    display: none !important; /* Remove bootstrap arrow */
+}
+
+/* Hotspots Dropdown */
+.gear-hotspots-dropdown {
+    position: relative;
+}
+
+.gear-hotspots-menu {
+    background: rgba(26, 26, 46, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    border-radius: 12px !important;
+    padding: 0.5rem !important;
+    min-width: 220px;
+    margin-top: 5px !important;
+    right: 0 !important; /* Dynamic in JS handles left usually, but we force right alignment */
+    left: auto !important;
+    z-index: 2000;
+}
+
+.gear-delete-hotspot {
+    border-color: rgba(220, 53, 69, 0.6) !important;
+    color: #ff4d4d !important;
+    background: transparent !important;
+}
+
+.gear-delete-hotspot:hover {
+    background: #dc3545 !important;
+    color: #fff !important;
+}
+
+.gear-hotspots-menu .dropdown-item-text {
+    color: rgba(255, 255, 255, 0.7) !important;
+    display: block;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.gear-edit-hotspot {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+
+.dropdown-item.gear-hotspot-nav-item {
+    color: rgba(255, 255, 255, 0.85);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.2s;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-item.gear-hotspot-nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+.dropdown-item.gear-hotspot-nav-item i {
+    width: 16px;
+    opacity: 0.7;
+}
+
+.dropdown-item.gear-help-categories button.active {
+    background: #007bff;
+    color: white;
+}
+
+/* Chat Panel */
+.gear-chat-panel {
+    top: 60px;
+    right: 0;
+    width: 320px;
+    max-height: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.gear-chat-panel.d-none {
+    display: none !important;
+}
+
+.gear-chat-header {
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gear-chat-messages {
+    padding: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+    min-height: 200px;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gear-chat-msg {
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 85%;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.gear-chat-msg.self {
+    background: #007bff;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+.gear-chat-msg.other {
+    background: #e9ecef;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+.gear-chat-sender {
+    font-size: 11px;
+    opacity: 0.8;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.gear-chat-input {
+    padding: 10px;
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    gap: 5px;
+    background: #fff;
+}
+
+
+.dropdown-item.gear-hotspot-nav-item.active {
+    background: var(--primary);
+    color: #fff;
+}
+
+.dropdown-item.gear-hotspot-nav-item.active i {
+    opacity: 1;
+}
+
+@keyframes hotspot-blink {
+    0%, 100% {
+        opacity: 0.9;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.3;
+        transform: scale(1.5);
+    }
+}
+
+.gear-hotspot-blinking {
+    animation: hotspot-blink 0.5s infinite ease-in-out !important;
+}
+
+@media (max-width: 991px) {
+    .gear-hotspots-dropdown {
+        order: -1;
+        width: 100%;
+        margin: 0 0 0.5rem 0;
+    }
+    .gear-hotspots-dropdown .gear-control-btn {
+        width: 100% !important;
+        justify-content: center;
+    }
+}
+
+.gear-control-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    height: 38px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.gear-hotspot-scale-slider {
+    width: 80px;
+    cursor: pointer;
+}
+
+.gear-color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff;
+    cursor: pointer;
+}
+
+.gear-hotspot-color-picker {
+    padding: 0;
+    margin: 0;
+    width: 140%;
+    height: 140%;
+    border: none;
+    cursor: pointer;
+    background: none;
+}

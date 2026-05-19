@@ -1,0 +1,105 @@
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * External services definitions for mod_gear.
+ *
+ * @package    mod_gear
+ * @copyright  2026 Boban Blagojevic
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+defined('MOODLE_INTERNAL') || die();
+
+$functions = [
+    'mod_gear_get_hotspots' => [
+        'classname'     => 'mod_gear\external\get_hotspots',
+        'description'   => 'Get hotspots for a GEAR activity',
+        'type'          => 'read',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:view',
+    ],
+    'mod_gear_save_hotspot' => [
+        'classname'     => 'mod_gear\external\save_hotspot',
+        'description'   => 'Create or update a hotspot',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:manage',
+    ],
+    'mod_gear_delete_hotspot' => [
+        'classname'     => 'mod_gear\external\delete_hotspot',
+        'description'   => 'Delete a hotspot',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:manage',
+    ],
+    'mod_gear_submit_quiz' => [
+        'classname'     => 'mod_gear\external\submit_quiz',
+        'description'   => 'Submit a quiz answer',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:view',
+    ],
+    'mod_gear_sync_session' => [
+        'classname'     => 'mod_gear\external\sync_session',
+        'description'   => 'Sync user session and get others',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:view',
+    ],
+    'mod_gear_get_leaderboard' => [
+        'classname'     => 'mod_gear\external\get_leaderboard',
+        'description'   => 'Get leaderboard scores',
+        'type'          => 'read',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:view',
+    ],
+    'mod_gear_generate_content' => [
+        'classname'     => 'mod_gear\external\generate_content',
+        'description'   => 'Generate content using AI',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:manage',
+    ],
+    'mod_gear_track_event' => [
+        'classname'     => 'mod_gear\external\track_event',
+        'description'   => 'Track user event',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:view',
+    ],
+    'mod_gear_get_scene_data' => [
+        'classname'     => 'mod_gear\external\get_scene_data',
+        'description'   => 'Get all scene data (models and hotspots)',
+        'type'          => 'read',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:view',
+    ],
+    'mod_gear_save_model_transform' => [
+        'classname'     => 'mod_gear\external\save_model_transform',
+        'description'   => 'Save model transformation (position, rotation, scale)',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:manage',
+    ],
+    'mod_gear_save_scene_config' => [
+        'classname'     => 'mod_gear\external\save_scene_config',
+        'description'   => 'Save scene configuration (currently just camera settings)',
+        'type'          => 'write',
+        'ajax'          => true,
+        'capabilities'  => 'mod/gear:manage',
+    ],
+];

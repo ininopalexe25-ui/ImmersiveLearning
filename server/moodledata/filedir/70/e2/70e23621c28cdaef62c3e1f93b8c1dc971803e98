@@ -1,0 +1,79 @@
+Jika Anda menggunakan standar TIA/EIA 568A untuk konektor RJ45, urutan warna serat kabel UTP yang benar dari Pin 1 hingga Pin 8 adalah: [cite: 78]
+A. Putih Hijau, Hijau, Putih Jingga, Biru, Putih Biru, Jingga, Putih Coklat, Cokelat [cite: 79]
+B. Putih Jingga, Jingga, Putih Hijau, Biru, Putih Biru, Hijau, Putih Coklat, Cokelat [cite: 80]
+C. Putih Hijau, Putih Jingga, Hijau, Biru, Putih Biru, Jingga, Putih Coklat, Cokelat [cite: 81]
+D. Putih Hijau, Putih Biru, Hijau, Biru, Putih Jingga, Jingga, Putih Coklat, Cokelat [cite: 82]
+E. Putih Hijau, Hijau, Putih Jingga, Putih Biru, Biru, Jingga, Putih Coklat, Cokelat [cite: 83]
+ANSWER: A
+
+Anda menguji kabel straight-through menggunakan LAN Tester dan menemukan bahwa lampu indikator Pin 4 dan Pin 5 menyala terbalik. Hal ini menunjukkan kegagalan pada: [cite: 85, 86]
+A. Pin transmisi utama data (Tx/Rx) di kedua ujung konektor. [cite: 87]
+B. Pasangan kabel biru dan putih biru yang tidak terpasang sesuai urutan standar. [cite: 88]
+C. Terputusnya pasangan kabel cokelat (Pin 7 dan 8) di salah satu ujung konektor. [cite: 89]
+D. LAN Tester yang mengalami error karena kabel UTP terlalu panjang. [cite: 90]
+E. Kabel sudah di-crimping dengan baik, namun ada masalah pada crosstalk. [cite: 91]
+ANSWER: B
+
+Kabel Straight-through wajib dibuat dan digunakan oleh teknisi jaringan untuk menghubungkan dua perangkat yang memiliki fungsi berbeda. Contoh kasus yang paling tepat menggunakan kabel Straight-through adalah menghubungkan: [cite: 94, 95]
+A. PC ke PC secara langsung. [cite: 96]
+B. Switch ke Router. [cite: 97]
+C. Switch ke Switch di jaringan berbeda. [cite: 98]
+D. PC ke Hub (Konsentrator). [cite: 99]
+E. Router ke Firewall di jaringan yang sama. [cite: 100]
+ANSWER: D
+
+Tujuan Pembelajaran menuntut ketelitian tinggi. Dalam praktik, salah satu penyebab kegagalan lolos uji LAN Tester adalah kulit luar kabel (jaket) tidak ikut terjepit oleh konektor RJ45. Konsekuensi langsung dari kurangnya ketelitian ini adalah: [cite: 103, 104]
+A. Konektor RJ45 akan terlihat lebih rapi dan estetis. [cite: 105]
+B. Kabel akan mudah terlepas atau serat tembaga mudah putus saat ditarik. [cite: 106]
+C. Kabel UTP secara otomatis hanya akan mentransmisikan data 10 Mbps. [cite: 107]
+D. LAN Tester tidak akan bisa mendeteksi adanya arus listrik. [cite: 108]
+E. Terjadinya short circuit (hubungan singkat) antar pasangan kabel. [cite: 109]
+ANSWER: B
+
+Seorang peserta didik berhasil membuat semua kabel lolos uji, namun membutuhkan waktu 30 menit per kabel. Mengingat standar efisiensi di DUDIKA, tindak lanjut yang paling tepat ditetapkan oleh peserta didik untuk perbaikan diri adalah: [cite: 112, 113]
+A. Fokus belajar konfigurasi Router karena crimping sudah tuntas. [cite: 114]
+B. Meningkatkan akurasi urutan warna pada 568B karena 568A sudah dikuasai. [cite: 115]
+C. Berlatih menggunakan crimping tool dengan ritme yang lebih cepat, sambil menjaga kualitas/ketelitian agar tetap 100% lolos uji. [cite: 116]
+D. Mengajarkan keterampilan crimping kepada teman yang belum berhasil lolos uji. [cite: 117]
+E. Mengganti jenis konektor RJ45 yang digunakan di Lab. [cite: 118]
+ANSWER: C
+
+Apa kepanjangan dari IP Address?
+A. Internet Protocol Address
+B. Internal Provider Address
+C. Intranet Personal Address
+D. Internet Port Address
+E. Internal Protocol Address
+ANSWER: A
+
+Berapakah Subnet Mask default untuk IP Address Kelas C?
+A. 255.0.0.0
+B. 255.255.0.0
+C. 255.255.255.0
+D. 255.255.255.255
+E. 0.0.0.0
+ANSWER: C
+
+Perangkat jaringan yang berfungsi memancarkan sinyal nirkabel (Wi-Fi) ke perangkat pengguna adalah:
+A. Switch
+B. Access Point
+C. Hub
+D. LAN Tester
+E. Crimping Tool
+ANSWER: B
+
+Standar keamanan jaringan nirkabel (Wi-Fi) yang paling disarankan dan aman digunakan saat ini adalah:
+A. WEP
+B. WPA
+C. Open System (Tanpa Password)
+D. WPA2-PSK
+E. MAC Address Filtering saja
+ANSWER: D
+
+Rentang IP Address standar untuk jaringan lokal Kelas C dimulai dari:
+A. 10.0.0.0
+B. 172.16.0.0
+C. 192.168.0.0
+D. 224.0.0.0
+E. 127.0.0.1
+ANSWER: C
